@@ -5,6 +5,7 @@ from gym.spaces import Box
 from .room_utils import generate_room
 from .render_utils import room_to_rgb, room_to_tiny_world_rgb
 import numpy as np
+import copy
 
 
 class SokobanEnv(gym.Env):
@@ -50,6 +51,15 @@ class SokobanEnv(gym.Env):
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
+
+    def set_room_state(self, new_room_state):
+        self.room_state = copy.deepcopy(new_room_state)
+
+    def set_box_mapping(self, new_box_mapping):
+        self.box_mapping = copy.deepcopy(new_box_mapping)
+
+    def set_room_fixed(self, new_room_fixed):
+        self.room_fixed = copy.deepcopy(new_room_fixed)
 
     def step(self, action, observation_mode='rgb_array'):
         assert action in ACTION_LOOKUP
@@ -198,13 +208,14 @@ class SokobanEnv(gym.Env):
     def _check_if_maxsteps(self):
         return (self.max_steps == self.num_env_steps)
 
-    def reset(self, second_player=False, render_mode='rgb_array'):
+    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
         try:
             self.room_fixed, self.room_state, self.box_mapping = generate_room(
                 dim=self.dim_room,
                 num_steps=self.num_gen_steps,
                 num_boxes=self.num_boxes,
-                second_player=second_player
+                second_player=second_player,
+                seed=seed
             )
         except (RuntimeError, RuntimeWarning) as e:
             print("[SOKOBAN] Runtime Error/Warning: {}".format(e))
@@ -219,7 +230,7 @@ class SokobanEnv(gym.Env):
         starting_observation = self.render(render_mode)
         return starting_observation
 
-    def render(self, mode='human', close=None, scale=1):
+    def render(self, mode='rgb_array', close=None, scale=1):
         assert mode in RENDERING_MODES
 
         img = self.get_image(mode, scale)
@@ -228,11 +239,12 @@ class SokobanEnv(gym.Env):
             return img
 
         elif 'human' in mode:
-            from gym.envs.classic_control import rendering
+            import matplotlib.pyplot as plt
             if self.viewer is None:
-                self.viewer = rendering.SimpleImageViewer()
-            self.viewer.imshow(img)
-            return self.viewer.isopen
+                self.viewer = plt
+            c = self.viewer.imshow(img)
+            plt.axis('off')
+            plt.show()
 
         elif 'raw' in mode:
             arr_walls = (self.room_fixed == 0).view(np.int8)

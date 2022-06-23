@@ -1,9 +1,9 @@
 import numpy as np
 import pkg_resources
-import imageio
+import imageio.v2 as imageio
 
 
-def room_to_rgb(room, room_structure=None):
+def room_to_rgb(room, room_structure=None, change_color=False):
     """
     Creates an RGB image of the room.
     :param room:
@@ -19,6 +19,8 @@ def room_to_rgb(room, room_structure=None):
 
     # Load images, representing the corresponding situation
     box_filename = pkg_resources.resource_filename(resource_package, '/'.join(('surface', 'box.png')))
+    if change_color:
+        box_filename = pkg_resources.resource_filename(resource_package, '/'.join(('surface', 'multibox', 'box0.png')))
     box = imageio.imread(box_filename)
 
     box_on_target_filename = pkg_resources.resource_filename(resource_package,
@@ -57,7 +59,7 @@ def room_to_rgb(room, room_structure=None):
     return room_rgb
 
 
-def room_to_tiny_world_rgb(room, room_structure=None, scale=1):
+def room_to_tiny_world_rgb(room, room_structure=None, scale=1, change_color=False):
 
     room = np.array(room)
     if not room_structure is None:
@@ -69,6 +71,8 @@ def room_to_tiny_world_rgb(room, room_structure=None, scale=1):
     box_target = [254, 126, 125]
     box_on_target = [254, 95, 56]
     box = [142, 121, 56]
+    if change_color:
+        box = [30, 144, 255]
     player = [160, 212, 56]
     player_on_target = [219, 212, 56]
 

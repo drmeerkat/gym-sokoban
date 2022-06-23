@@ -3,7 +3,7 @@ import numpy as np
 import marshal
 
 
-def generate_room(dim=(13, 13), p_change_directions=0.35, num_steps=25, num_boxes=3, tries=4, second_player=False):
+def generate_room(dim=(13, 13), p_change_directions=0.35, num_steps=25, num_boxes=3, tries=4, second_player=False, seed=12345):
     """
     Generates a Sokoban room, represented by an integer matrix. The elements are encoded as follows:
     wall = 0
@@ -18,6 +18,7 @@ def generate_room(dim=(13, 13), p_change_directions=0.35, num_steps=25, num_boxe
     :param num_steps:
     :return: Numpy 2d Array
     """
+    random.seed(seed)
     room_state = np.zeros(shape=dim)
     room_structure = np.zeros(shape=dim)
 
