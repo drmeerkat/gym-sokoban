@@ -1,8 +1,138 @@
+from typing import overload
+import numpy as np
+
 from .sokoban_env import SokobanEnv
 from .sokoban_env_fixed_targets import FixedTargetsSokobanEnv
 from .sokoban_env_pull import PushAndPullSokobanEnv
 from .sokoban_env_two_player import TwoPlayerSokobanEnv
 from .boxoban_env import BoxobanEnv
+
+class SokobanEnv_Target(SokobanEnv):
+    metadata = {
+        'render.modes': ['human', 'rgb_array']
+    }
+
+    def __init__(self, **kwargs):
+        kwargs['num_boxes'] = kwargs.get('num_boxes', 1)
+        kwargs['max_steps'] = kwargs.get('max_steps', 30)
+        kwargs['dim_room'] = kwargs.get('dim_room', (5,5))
+        super(SokobanEnv_Target, self).__init__(**kwargs)
+
+    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        room_fixed = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 1, 2, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 1, 2, 0],
+                               [0, 1, 4, 1, 0],
+                               [0, 1, 1, 5, 0],
+                               [0, 0, 0, 0, 0]])
+        #  target pos: box pos
+        box_mapping = {(1, 3):(2, 2)}
+        self.set_box_mapping(box_mapping)
+        self.set_room_fixed(room_fixed)
+        self.set_room_state(room_state)
+        starting_observation = self.render()
+
+        return starting_observation
+
+
+class SokobanEnv_Source1(SokobanEnv):
+    metadata = {
+        'render.modes': ['human', 'rgb_array']
+    }
+
+    def __init__(self, **kwargs):
+        kwargs['num_boxes'] = kwargs.get('num_boxes', 1)
+        kwargs['max_steps'] = kwargs.get('max_steps', 30)
+        kwargs['dim_room'] = kwargs.get('dim_room', (5,5))
+        super(SokobanEnv_Source1, self).__init__(**kwargs)
+
+    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        room_fixed = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 1, 2, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state = np.array([[0, 0, 0, 0, 0],
+                               [0, 5, 4, 2, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        #  target pos: box pos
+        box_mapping = {(1, 3):(2, 2)}
+        self.set_box_mapping(box_mapping)
+        self.set_room_fixed(room_fixed)
+        self.set_room_state(room_state)
+        starting_observation = self.render()
+
+        return starting_observation
+
+
+class SokobanEnv_Source2(SokobanEnv):
+    metadata = {
+        'render.modes': ['human', 'rgb_array']
+    }
+
+    def __init__(self, **kwargs):
+        kwargs['num_boxes'] = kwargs.get('num_boxes', 1)
+        kwargs['max_steps'] = kwargs.get('max_steps', 30)
+        kwargs['dim_room'] = kwargs.get('dim_room', (5,5))
+        super(SokobanEnv_Source2, self).__init__(**kwargs)
+
+    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        room_fixed = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 1, 2, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 4, 2, 0],
+                               [0, 1, 5, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        #  target pos: box pos
+        box_mapping = {(1, 3):(2, 2)}
+        self.set_box_mapping(box_mapping)
+        self.set_room_fixed(room_fixed)
+        self.set_room_state(room_state)
+        starting_observation = self.render()
+
+        return starting_observation
+
+
+class SokobanEnv_Source3(SokobanEnv):
+    metadata = {
+        'render.modes': ['human', 'rgb_array']
+    }
+
+    def __init__(self, **kwargs):
+        kwargs['num_boxes'] = kwargs.get('num_boxes', 1)
+        kwargs['max_steps'] = kwargs.get('max_steps', 30)
+        kwargs['dim_room'] = kwargs.get('dim_room', (5,5))
+        super(SokobanEnv_Source3, self).__init__(**kwargs)
+
+    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        room_fixed = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 1, 2, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 1, 2, 0],
+                               [0, 1, 4, 1, 0],
+                               [0, 1, 5, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        #  target pos: box pos
+        box_mapping = {(1, 3):(2, 2)}
+        self.set_box_mapping(box_mapping)
+        self.set_room_fixed(room_fixed)
+        self.set_room_state(room_state)
+        starting_observation = self.render()
+
+        return starting_observation
 
 
 class SokobanEnv1(SokobanEnv):
