@@ -34,6 +34,11 @@ class SokobanEnv_Target(SokobanEnv):
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
         self.set_room_state(room_state)
+
+        self.player_position = np.argwhere(self.room_state == 5)[0]
+        self.num_env_steps = 0
+        self.reward_last = 0
+        self.boxes_on_target = 0
         starting_observation = self.render()
 
         return starting_observation
@@ -66,6 +71,11 @@ class SokobanEnv_Source1(SokobanEnv):
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
         self.set_room_state(room_state)
+
+        self.player_position = np.argwhere(self.room_state == 5)[0]
+        self.num_env_steps = 0
+        self.reward_last = 0
+        self.boxes_on_target = 0
         starting_observation = self.render()
 
         return starting_observation
@@ -98,6 +108,11 @@ class SokobanEnv_Source2(SokobanEnv):
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
         self.set_room_state(room_state)
+
+        self.player_position = np.argwhere(self.room_state == 5)[0]
+        self.num_env_steps = 0
+        self.reward_last = 0
+        self.boxes_on_target = 0
         starting_observation = self.render()
 
         return starting_observation
@@ -130,6 +145,11 @@ class SokobanEnv_Source3(SokobanEnv):
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
         self.set_room_state(room_state)
+
+        self.player_position = np.argwhere(self.room_state == 5)[0]
+        self.num_env_steps = 0
+        self.reward_last = 0
+        self.boxes_on_target = 0
         starting_observation = self.render()
 
         return starting_observation
