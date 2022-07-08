@@ -1,5 +1,6 @@
 from typing import overload
 import numpy as np
+import random
 
 from .sokoban_env import SokobanEnv
 from .sokoban_env_fixed_targets import FixedTargetsSokobanEnv
@@ -61,16 +62,25 @@ class SokobanEnv_Source1(SokobanEnv):
                                [0, 1, 1, 1, 0],
                                [0, 1, 1, 1, 0],
                                [0, 0, 0, 0, 0]])
-        room_state = np.array([[0, 0, 0, 0, 0],
+        room_state1 = np.array([[0, 0, 0, 0, 0],
                                [0, 5, 4, 2, 0],
                                [0, 1, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state2 = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 4, 2, 0],
+                               [0, 5, 1, 1, 0],
                                [0, 1, 1, 1, 0],
                                [0, 0, 0, 0, 0]])
         #  target pos: box pos
         box_mapping = {(1, 3):(2, 2)}
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
-        self.set_room_state(room_state)
+        sample = random.random()
+        if sample > .5:
+            self.set_room_state(room_state1)
+        else:
+            self.set_room_state(room_state2)
 
         self.player_position = np.argwhere(self.room_state == 5)[0]
         self.num_env_steps = 0
@@ -98,16 +108,32 @@ class SokobanEnv_Source2(SokobanEnv):
                                [0, 1, 1, 1, 0],
                                [0, 1, 1, 1, 0],
                                [0, 0, 0, 0, 0]])
-        room_state = np.array([[0, 0, 0, 0, 0],
+        room_state1 = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 4, 2, 0],
                                [0, 1, 5, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state2 = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 4, 2, 0],
+                               [0, 5, 1, 1, 0],
+                               [0, 1, 1, 1, 0],
+                               [0, 0, 0, 0, 0]])
+        room_state3 = np.array([[0, 0, 0, 0, 0],
+                               [0, 1, 4, 2, 0],
+                               [0, 1, 1, 5, 0],
                                [0, 1, 1, 1, 0],
                                [0, 0, 0, 0, 0]])
         #  target pos: box pos
         box_mapping = {(1, 3):(2, 2)}
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
-        self.set_room_state(room_state)
+        sample = random.random()
+        if sample > .7:
+            self.set_room_state(room_state3)
+        elif sample > .4:
+            self.set_room_state(room_state2)
+        else:
+            self.set_room_state(room_state1)
 
         self.player_position = np.argwhere(self.room_state == 5)[0]
         self.num_env_steps = 0
@@ -135,16 +161,32 @@ class SokobanEnv_Source3(SokobanEnv):
                                [0, 1, 1, 1, 0],
                                [0, 1, 1, 1, 0],
                                [0, 0, 0, 0, 0]])
-        room_state = np.array([[0, 0, 0, 0, 0],
-                               [0, 1, 1, 2, 0],
-                               [0, 1, 4, 1, 0],
-                               [0, 1, 5, 1, 0],
-                               [0, 0, 0, 0, 0]])
+        room_state1 = np.array([[0, 0, 0, 0, 0],
+                                [0, 1, 1, 2, 0],
+                                [0, 1, 4, 1, 0],
+                                [0, 1, 5, 1, 0],
+                                [0, 0, 0, 0, 0]])
+        room_state2 = np.array([[0, 0, 0, 0, 0],
+                                [0, 1, 1, 2, 0],
+                                [0, 1, 4, 1, 0],
+                                [0, 5, 1, 1, 0],
+                                [0, 0, 0, 0, 0]])
+        room_state3 = np.array([[0, 0, 0, 0, 0],
+                                [0, 1, 1, 2, 0],
+                                [0, 1, 4, 1, 0],
+                                [0, 1, 1, 5, 0],
+                                [0, 0, 0, 0, 0]])
         #  target pos: box pos
         box_mapping = {(1, 3):(2, 2)}
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
-        self.set_room_state(room_state)
+        sample = random.random()
+        if sample > .7:
+            self.set_room_state(room_state3)
+        elif sample > .4:
+            self.set_room_state(room_state2)
+        else:
+            self.set_room_state(room_state1)
 
         self.player_position = np.argwhere(self.room_state == 5)[0]
         self.num_env_steps = 0
