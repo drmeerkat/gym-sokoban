@@ -42,7 +42,7 @@ class SokobanEnv_Target(SokobanEnv):
         self.boxes_on_target = 0
         starting_observation = self.render()
 
-        return starting_observation
+        return self.room_state
 
     def step(self, action, observation_mode='rgb_array'):
         observation, reward, done, info = super(SokobanEnv_Target, self).step(action, observation_mode=observation_mode)
@@ -92,7 +92,7 @@ class SokobanEnv_Source1(SokobanEnv):
         self.boxes_on_target = 0
         starting_observation = self.render()
 
-        return starting_observation
+        return self.room_state
 
     def step(self, action, observation_mode='rgb_array'):
         observation, reward, done, info = super(SokobanEnv_Source1, self).step(action, observation_mode=observation_mode)
@@ -149,7 +149,7 @@ class SokobanEnv_Source2(SokobanEnv):
         self.boxes_on_target = 0
         starting_observation = self.render()
 
-        return starting_observation
+        return self.room_state
 
     def step(self, action, observation_mode='rgb_array'):
         observation, reward, done, info = super(SokobanEnv_Source2, self).step(action, observation_mode=observation_mode)
@@ -206,7 +206,7 @@ class SokobanEnv_Source3(SokobanEnv):
         self.boxes_on_target = 0
         starting_observation = self.render()
 
-        return starting_observation
+        return self.room_state
         
     def step(self, action, observation_mode='rgb_array'):
         observation, reward, done, info = super(SokobanEnv_Source3, self).step(action, observation_mode=observation_mode)
