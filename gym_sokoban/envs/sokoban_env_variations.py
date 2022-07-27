@@ -44,6 +44,10 @@ class SokobanEnv_Target(SokobanEnv):
 
         return starting_observation
 
+    def step(self, action, observation_mode='rgb_array'):
+        observation, reward, done, info = super(SokobanEnv_Target, self).step(action, observation_mode=observation_mode)
+        return self.room_state, reward, done, info
+
 
 class SokobanEnv_Source1(SokobanEnv):
     metadata = {
@@ -89,6 +93,10 @@ class SokobanEnv_Source1(SokobanEnv):
         starting_observation = self.render()
 
         return starting_observation
+
+    def step(self, action, observation_mode='rgb_array'):
+        observation, reward, done, info = super(SokobanEnv_Source1, self).step(action, observation_mode=observation_mode)
+        return self.room_state, reward, done, info
 
 
 class SokobanEnv_Source2(SokobanEnv):
@@ -143,6 +151,10 @@ class SokobanEnv_Source2(SokobanEnv):
 
         return starting_observation
 
+    def step(self, action, observation_mode='rgb_array'):
+        observation, reward, done, info = super(SokobanEnv_Source2, self).step(action, observation_mode=observation_mode)
+        return self.room_state, reward, done, info
+
 
 class SokobanEnv_Source3(SokobanEnv):
     metadata = {
@@ -195,7 +207,10 @@ class SokobanEnv_Source3(SokobanEnv):
         starting_observation = self.render()
 
         return starting_observation
-
+        
+    def step(self, action, observation_mode='rgb_array'):
+        observation, reward, done, info = super(SokobanEnv_Source3, self).step(action, observation_mode=observation_mode)
+        return self.room_state, reward, done, info
 
 class SokobanEnv1(SokobanEnv):
     metadata = {
