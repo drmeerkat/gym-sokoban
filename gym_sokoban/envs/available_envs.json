@@ -120,20 +120,24 @@
     "entry_point": "gym_sokoban.envs:Boxban_Env1_val"
   },
   {
-    "id": "Sokoban-target",
+    "id": "Sokoban-target-v1",
     "entry_point": "gym_sokoban.envs:SokobanEnv_Target"
   },
   {
-    "id": "Sokoban-source1",
+    "id": "Sokoban-source1-v1",
     "entry_point": "gym_sokoban.envs:SokobanEnv_Source1"
   },
   {
-    "id": "Sokoban-source2",
+    "id": "Sokoban-source2-v1",
     "entry_point": "gym_sokoban.envs:SokobanEnv_Source2"
   },
   {
-    "id": "Sokoban-source3",
+    "id": "Sokoban-source3-v1",
     "entry_point": "gym_sokoban.envs:SokobanEnv_Source3"
+  },
+  {
+    "id": "Colorbox-v1",
+    "entry_point": "gym_sokoban.envs:SokobanEnvColorBox"
   }
 
 ]
