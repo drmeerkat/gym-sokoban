@@ -67,7 +67,7 @@ class SokobanEnvColorBox(SokobanEnv):
         # 0 - no intervention (box color = y/b, target color = box color)
         # 1 - do(box color = y, target color = random)
         # 2 - do(box color = b, target color = random)
-        self._context = [1, 4, 0]
+        self._context = [0, 6, 0]
         super(SokobanEnvColorBox, self).__init__(**kwargs)
         self.observation_space = Box(low=0, high=6, shape=(1, kwargs['dim_room'][0], kwargs['dim_room'][1]), dtype=np.int64)
 
