@@ -111,6 +111,7 @@ class SokobanEnvColorBox(SokobanEnv):
         self.prev_target_color = self.target_color
         _, r, done, info = super(SokobanEnvColorBox, self).step(action, 'raw')
         obs = self.get_obs()
+        info['success'] = done
 
         return obs, r, done, info
 
