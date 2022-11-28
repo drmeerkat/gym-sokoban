@@ -34,7 +34,7 @@ class SokobanEnvColorBox(SokobanEnv):
         7: (2, 3)
     }
 
-    def __init__(self, color_threshold = 50, **kwargs):
+    def __init__(self, color_threshold = 30, **kwargs):
         kwargs = {}
         kwargs['num_boxes'] = 1
         kwargs['max_steps'] = kwargs.get('max_steps', 30)
@@ -116,17 +116,20 @@ class SokobanEnvColorBox(SokobanEnv):
         return obs, r, done, info
 
     def get_obs(self, observation_mode='state'):
+        U = (np.random.randint(0, 100) <= self.color_threshold)
         # box and target color from s_{t+1}
         if self.intervention == 1:
+            # fix box color to yellow
             self.box_color = False
-            self.target_color = np.random.randint(0, 100) >= self.color_threshold
+            self.target_color = U
         elif self.intervention == 2:
+            # fix box color to blue
             self.box_color = True
-            self.target_color = np.random.randint(0, 100) >= self.color_threshold
+            self.target_color = U
         else:
-            # w/ p = 1 - threshold/100 set box color to blue
-            # default threshold = 99, p = 1/100
-            self.box_color = np.random.randint(0, 100) >= self.color_threshold
+            # w/ p = .3 set box color to blue
+            # default threshold = 30, p = .3
+            self.box_color = U
             # this always aligns with box_color in this env
             self.target_color = self.box_color
 
@@ -181,7 +184,9 @@ class SokobanEnvColorBox(SokobanEnv):
         game_won = self._check_if_all_boxes_on_target()
         if game_won:
             # use box and target color from s_t!
-            if self.prev_box_color == self.prev_target_color:
+            if self.prev_box_color == self.prev_target_color and self.prev_target_color == 0:
+                self.reward_last += self.reward_finished
+            elif self.prev_box_color != self.prev_target_color and self.prev_target_color == 0:
                 self.reward_last += self.reward_finished
             else:
                 self.reward_last += -self.reward_finished
