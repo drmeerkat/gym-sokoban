@@ -35,7 +35,6 @@ class SokobanEnvColorBox(SokobanEnv):
     }
 
     def __init__(self, color_threshold = 30, **kwargs):
-        kwargs = {}
         kwargs['num_boxes'] = 1
         kwargs['max_steps'] = kwargs.get('max_steps', 30)
         kwargs['num_gen_steps'] = kwargs.get('num_gen_steps', 40)
@@ -116,7 +115,7 @@ class SokobanEnvColorBox(SokobanEnv):
         return obs, r, done, info
 
     def get_obs(self, observation_mode='state'):
-        U = (np.random.randint(0, 100) <= self.color_threshold)
+        U = (random.random() <= self.color_threshold/100)
         # box and target color from s_{t+1}
         if self.intervention == 1:
             # fix box color to yellow
@@ -129,9 +128,9 @@ class SokobanEnvColorBox(SokobanEnv):
         else:
             # w/ p = .3 set box color to blue
             # default threshold = 30, p = .3
-            self.box_color = U
+            self.target_color = U
             # this always aligns with box_color in this env
-            self.target_color = self.box_color
+            self.box_color = self.target_color
 
         if observation_mode == 'rgb_array' or observation_mode.startswith('tiny_'):
             obs = self.get_image(observation_mode)
