@@ -188,7 +188,7 @@ class SokobanEnvColorBox(SokobanEnv):
             elif self.prev_box_color != self.prev_target_color and self.prev_target_color == 0:
                 self.reward_last += self.reward_finished
             else:
-                self.reward_last += -self.reward_finished
+                self.reward_last += -2 * self.reward_finished
 
         self.boxes_on_target = current_boxes_on_target
 
