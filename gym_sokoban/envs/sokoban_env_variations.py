@@ -117,11 +117,11 @@ class SokobanEnvColorBox(SokobanEnv):
     def get_obs(self, observation_mode='state'):
         U = (random.random() <= self.color_threshold/100)
         # box and target color from s_{t+1}
-        if self.intervention == 1:
+        if self.intervention == 2:
             # fix box color to yellow
             self.box_color = False
             self.target_color = U
-        elif self.intervention == 2:
+        elif self.intervention == 1:
             # fix box color to blue
             self.box_color = True
             self.target_color = U
