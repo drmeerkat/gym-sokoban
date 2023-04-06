@@ -409,6 +409,7 @@ class SokobanEnv_Source3(SokobanEnv):
 class SokobanEnv1(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -420,6 +421,7 @@ class SokobanEnv1(SokobanEnv):
 class SokobanEnv2(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -432,6 +434,7 @@ class SokobanEnv2(SokobanEnv):
 class SokobanEnv_Small0(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -444,6 +447,7 @@ class SokobanEnv_Small0(SokobanEnv):
 class SokobanEnv_Small1(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -456,6 +460,7 @@ class SokobanEnv_Small1(SokobanEnv):
 class SokobanEnv_Large0(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -469,6 +474,7 @@ class SokobanEnv_Large0(SokobanEnv):
 class SokobanEnv_Large1(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -482,6 +488,7 @@ class SokobanEnv_Large1(SokobanEnv):
 class SokobanEnv_Large1(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -495,6 +502,7 @@ class SokobanEnv_Large1(SokobanEnv):
 class SokobanEnv_Huge0(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -508,6 +516,7 @@ class SokobanEnv_Huge0(SokobanEnv):
 class FixedTargets_Env_v0(FixedTargetsSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -521,6 +530,7 @@ class FixedTargets_Env_v0(FixedTargetsSokobanEnv):
 class FixedTargets_Env_v1(FixedTargetsSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -534,6 +544,7 @@ class FixedTargets_Env_v1(FixedTargetsSokobanEnv):
 class FixedTargets_Env_v2(FixedTargetsSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -547,6 +558,7 @@ class FixedTargets_Env_v2(FixedTargetsSokobanEnv):
 class FixedTargets_Env_v3(FixedTargetsSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -560,6 +572,7 @@ class FixedTargets_Env_v3(FixedTargetsSokobanEnv):
 class PushAndPull_Env_v0(PushAndPullSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -573,6 +586,7 @@ class PushAndPull_Env_v0(PushAndPullSokobanEnv):
 class PushAndPull_Env_v1(PushAndPullSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -586,6 +600,7 @@ class PushAndPull_Env_v1(PushAndPullSokobanEnv):
 class PushAndPull_Env_v2(PushAndPullSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -599,6 +614,7 @@ class PushAndPull_Env_v2(PushAndPullSokobanEnv):
 class PushAndPull_Env_v3(PushAndPullSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -612,6 +628,7 @@ class PushAndPull_Env_v3(PushAndPullSokobanEnv):
 class PushAndPull_Env_v4(PushAndPullSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -625,6 +642,7 @@ class PushAndPull_Env_v4(PushAndPullSokobanEnv):
 class PushAndPull_Env_v5(PushAndPullSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -638,6 +656,7 @@ class PushAndPull_Env_v5(PushAndPullSokobanEnv):
 class TwoPlayer_Env0(TwoPlayerSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -650,6 +669,7 @@ class TwoPlayer_Env0(TwoPlayerSokobanEnv):
 class TwoPlayer_Env1(TwoPlayerSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -662,6 +682,7 @@ class TwoPlayer_Env1(TwoPlayerSokobanEnv):
 class TwoPlayer_Env2(TwoPlayerSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -674,6 +695,7 @@ class TwoPlayer_Env2(TwoPlayerSokobanEnv):
 class TwoPlayer_Env3(TwoPlayerSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -686,6 +708,7 @@ class TwoPlayer_Env3(TwoPlayerSokobanEnv):
 class TwoPlayer_Env4(TwoPlayerSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -699,6 +722,7 @@ class TwoPlayer_Env4(TwoPlayerSokobanEnv):
 class TwoPlayer_Env5(TwoPlayerSokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -710,6 +734,7 @@ class TwoPlayer_Env5(TwoPlayerSokobanEnv):
 class Boxban_Env0(BoxobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -721,6 +746,7 @@ class Boxban_Env0(BoxobanEnv):
 class Boxban_Env0_val(BoxobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -732,6 +758,7 @@ class Boxban_Env0_val(BoxobanEnv):
 class Boxban_Env0_test(BoxobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -743,6 +770,7 @@ class Boxban_Env0_test(BoxobanEnv):
 class Boxban_Env1(BoxobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
@@ -753,6 +781,7 @@ class Boxban_Env1(BoxobanEnv):
 class Boxban_Env1_val(BoxobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     def __init__(self, **kwargs):
