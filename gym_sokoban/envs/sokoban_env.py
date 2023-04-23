@@ -1,11 +1,12 @@
+import numpy as np
+import copy
+import random
 import gymnasium as gym
 from gymnasium.utils import seeding
 from gymnasium.spaces.discrete import Discrete
 from gymnasium.spaces import Box
 from .room_utils import generate_room
 from .render_utils import room_to_rgb, room_to_tiny_world_rgb, Window
-import numpy as np
-import copy
 
 
 class SokobanEnv(gym.Env):
@@ -53,6 +54,7 @@ class SokobanEnv(gym.Env):
 
     def seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
+        random.seed(seed)
         return [seed]
 
     def set_room_state(self, new_room_state):

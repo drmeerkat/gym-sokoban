@@ -81,6 +81,8 @@ class SokobanEnvColorBox(SokobanEnv):
     context = property(get_context, set_context)
 
     def reset(self, second_player=False, seed=None, options=None):
+        if seed is not None:
+            random.seed(seed)
         room_fixed = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 1, 2, 0],
                                [0, 1, 1, 1, 0],
@@ -253,6 +255,8 @@ class SokobanEnv_Source1(SokobanEnv):
         self.observation_space = Box(low=0, high=5, shape=(1, kwargs['dim_room'][0], kwargs['dim_room'][1]), dtype=np.int64)
 
     def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        if seed is not None:
+            random.seed(seed)
         room_fixed = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 1, 2, 0],
                                [0, 1, 1, 1, 0],
@@ -306,6 +310,8 @@ class SokobanEnv_Source2(SokobanEnv):
         self.observation_space = Box(low=0, high=5, shape=(1, kwargs['dim_room'][0], kwargs['dim_room'][1]), dtype=np.int64)
 
     def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        if seed is not None:
+            random.seed(seed)
         room_fixed = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 1, 2, 0],
                                [0, 1, 1, 1, 0],
@@ -366,6 +372,8 @@ class SokobanEnv_Source3(SokobanEnv):
         self.observation_space = Box(low=0, high=5, shape=(1, kwargs['dim_room'][0], kwargs['dim_room'][1]), dtype=np.int64)
 
     def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+        if seed is not None:
+            random.seed(seed)
         room_fixed = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 1, 2, 0],
                                [0, 1, 1, 1, 0],
