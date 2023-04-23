@@ -3,7 +3,7 @@ from gymnasium.utils import seeding
 from gymnasium.spaces.discrete import Discrete
 from gymnasium.spaces import Box
 from .room_utils import generate_room
-from .render_utils import room_to_rgb, room_to_tiny_world_rgb
+from .render_utils import room_to_rgb, room_to_tiny_world_rgb, Window
 import numpy as np
 import copy
 
@@ -90,7 +90,9 @@ class SokobanEnv(gym.Env):
         truncated = self._check_if_maxsteps()
 
         # Convert the observation to RGB frame
-        observation = self.render()
+        if self.render_mode == "human":
+            self.render()
+        observation = self._observe()
 
         info = {
             "action.name": ACTION_LOOKUP[action],
@@ -208,7 +210,7 @@ class SokobanEnv(gym.Env):
     def _check_if_maxsteps(self):
         return (self.max_steps == self.num_env_steps)
 
-    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+    def reset(self, second_player=False, seed=12345):
         try:
             self.room_fixed, self.room_state, self.box_mapping = generate_room(
                 dim=self.dim_room,
@@ -226,9 +228,11 @@ class SokobanEnv(gym.Env):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
-        self.render_mode = render_mode
 
-        starting_observation = self.render()
+        if self.render_mode == "human":
+            self.render()
+
+        starting_observation = self._observe()
         return starting_observation
     
     def render(self):
@@ -240,15 +244,16 @@ class SokobanEnv(gym.Env):
         img = self.get_image(mode, scale)
 
         if 'rgb_array' in mode:
+            # print('here?', self.render_mode)
             return img
 
         elif 'human' in mode:
-            import matplotlib.pyplot as plt
+            # print('here')
             if self.viewer is None:
-                self.viewer = plt
-            c = self.viewer.imshow(img)
-            plt.axis('off')
-            plt.show()
+                self.viewer = Window("Sokoban")
+                self.viewer.show(block=False)
+            self.viewer.set_caption("Push all the boxes to target locations")
+            self.viewer.show_img(img)
 
         elif 'raw' in mode:
             arr_walls = (self.room_fixed == 0).view(np.int8)

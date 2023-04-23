@@ -80,7 +80,7 @@ class SokobanEnvColorBox(SokobanEnv):
 
     context = property(get_context, set_context)
 
-    def reset(self, second_player=False, render_mode='rgb_array', seed=None, options=None):
+    def reset(self, second_player=False, seed=None, options=None):
         room_fixed = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 1, 2, 0],
                                [0, 1, 1, 1, 0],
@@ -104,10 +104,12 @@ class SokobanEnvColorBox(SokobanEnv):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
-        self.render_mode = render_mode
         self._set_box_color()
 
-        return self.render(), {}
+        if self.render_mode == 'human':
+            self.render()
+
+        return self._observe(), {}
     
     def _set_box_color(self):
         U = (random.random() <= self.color_threshold/100)
