@@ -19,6 +19,7 @@ class SokobanEnv(gym.Env):
                  max_steps=120,
                  num_boxes=4,
                  num_gen_steps=None,
+                 render_mode='rgb_array',
                  reset=True):
 
         # General Configuration
@@ -62,9 +63,8 @@ class SokobanEnv(gym.Env):
     def set_room_fixed(self, new_room_fixed):
         self.room_fixed = copy.deepcopy(new_room_fixed)
 
-    def step(self, action, observation_mode='rgb_array'):
+    def step(self, action):
         assert action in ACTION_LOOKUP
-        assert observation_mode in ['rgb_array', 'tiny_rgb_array', 'raw']
 
         self.num_env_steps += 1
 
@@ -85,23 +85,25 @@ class SokobanEnv(gym.Env):
 
         self._calc_reward()
         
-        done = self._check_if_done()
+        terminate = self._check_if_all_boxes_on_target()
+
+        truncated = self._check_if_maxsteps()
 
         # Convert the observation to RGB frame
-        observation = self.render(mode=observation_mode)
+        observation = self.render()
 
         info = {
             "action.name": ACTION_LOOKUP[action],
             "action.moved_player": moved_player,
             "action.moved_box": moved_box,
         }
-        if done:
+        if terminate or truncated:
             info["maxsteps_used"] = self._check_if_maxsteps()
             info["all_boxes_on_target"] = self._check_if_all_boxes_on_target()
             # if not self._check_if_all_boxes_on_target():
             #     self.reward_last -= self.reward_finished
 
-        return observation, self.reward_last, done, info
+        return observation, self.reward_last, terminate, truncated, info
 
     def _push(self, action):
         """
@@ -197,11 +199,6 @@ class SokobanEnv(gym.Env):
         
         self.boxes_on_target = current_boxes_on_target
 
-    def _check_if_done(self):
-        # Check if the game is over either through reaching the maximum number
-        # of available steps or by pushing all boxes on the targets.        
-        return self._check_if_all_boxes_on_target() or self._check_if_maxsteps()
-
     def _check_if_all_boxes_on_target(self):
         empty_targets = self.room_state == 2
         player_hiding_target = (self.room_fixed == 2) & (self.room_state == 5)
@@ -229,11 +226,15 @@ class SokobanEnv(gym.Env):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
+        self.render_mode = render_mode
 
-        starting_observation = self.render(render_mode)
+        starting_observation = self.render()
         return starting_observation
+    
+    def render(self):
+        return self._observe(mode = self.render_mode)
 
-    def render(self, mode='rgb_array', close=None, scale=1):
+    def _observe(self, mode='rgb_array', close=None, scale=1):
         assert mode in RENDERING_MODES
 
         img = self.get_image(mode, scale)
@@ -258,7 +259,7 @@ class SokobanEnv(gym.Env):
             return arr_walls, arr_goals, arr_boxes, arr_player
 
         else:
-            super(SokobanEnv, self).render(mode=mode)  # just raise an exception
+            raise Exception(f'Unknow observation mode {mode}')
 
     def get_image(self, mode, scale=1):
         

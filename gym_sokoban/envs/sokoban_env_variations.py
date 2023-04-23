@@ -15,6 +15,7 @@ from .boxoban_env import BoxobanEnv
 class SokobanEnvColorBox(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
     }
 
     box_context_mapping = {
@@ -34,13 +35,14 @@ class SokobanEnvColorBox(SokobanEnv):
         7: (2, 3)
     }
 
-    def __init__(self, color_threshold = 30, **kwargs):
+    def __init__(self, color_threshold = 30, render_mode='rgb_array', **kwargs):
         kwargs['num_boxes'] = 1
         kwargs['max_steps'] = kwargs.get('max_steps', 30)
         kwargs['num_gen_steps'] = kwargs.get('num_gen_steps', 40)
         kwargs['dim_room'] = (5, 5)
         kwargs['reset'] = False # don't initialize the room
 
+        self.render_mode = render_mode
         self.color_threshold = color_threshold
         self.box_color = False
         self.target_color = False
@@ -78,7 +80,7 @@ class SokobanEnvColorBox(SokobanEnv):
 
     context = property(get_context, set_context)
 
-    def reset(self, second_player=False, render_mode='rgb_array', seed=12345):
+    def reset(self, second_player=False, render_mode='rgb_array', seed=None, options=None):
         room_fixed = np.array([[0, 0, 0, 0, 0],
                                [0, 1, 1, 2, 0],
                                [0, 1, 1, 1, 0],
@@ -102,23 +104,14 @@ class SokobanEnvColorBox(SokobanEnv):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
+        self.render_mode = render_mode
+        self._set_box_color()
 
-        return self.get_obs()
-
-    def step(self, action, observation_mode='state'):
-        # box and target color from s_t
-        self.prev_box_color = self.box_color
-        self.prev_target_color = self.target_color
-        _, r, done, info = super(SokobanEnvColorBox, self).step(action, 'raw')
-        obs = self.get_obs()
-        info['success'] = done and (r > 7)
-
-        return obs, r, done, info
-
-    def get_obs(self, observation_mode='state'):
+        return self.render(), {}
+    
+    def _set_box_color(self):
         U = (random.random() <= self.color_threshold/100)
         self.target_color = U
-        # box and target color from s_{t+1}
         if self.intervention == 2:
             # fix box color to yellow
             self.box_color = False
@@ -126,25 +119,22 @@ class SokobanEnvColorBox(SokobanEnv):
             # fix box color to blue
             self.box_color = True
         else:
-            # w/ p = .3 set box color to blue
-            # default threshold = 30, p = .3
             # this always aligns with box_color in this env
             self.box_color = self.target_color
 
-        if observation_mode == 'rgb_array' or observation_mode.startswith('tiny_'):
-            obs = self.get_image(observation_mode)
-        elif observation_mode == 'state':
-            obs = copy.deepcopy(self.room_state)
-            if self.box_color:
-                # change the box number to 6
-                obs[obs == 4] = 6
-            # normalize observations
-            # obs = (obs/6.0).round(4)
-            obs = np.expand_dims(obs, 0)
-        else:
-            raise Exception('Unknown observation mode!')
+    def step(self, action):
+        # box and target color from s_t
+        self.prev_box_color = self.box_color
+        self.prev_target_color = self.target_color
+        
+        # box and target color from s_t+1
+        self._set_box_color()
 
-        return obs
+        # Handle other movement events
+        obs, r, term, trunc, info = super(SokobanEnvColorBox, self).step(action)
+        info['success'] = term and (r > 7)
+
+        return obs, r, term, trunc, info
 
     def get_image(self, mode, scale=1):
         if mode.startswith('tiny_'):
@@ -237,6 +227,7 @@ class SokobanEnv_Target(SokobanEnv):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
+        self.render_mode = render_mode
         starting_observation = self.render()
 
         return np.expand_dims(self.room_state, 0)
@@ -289,6 +280,7 @@ class SokobanEnv_Source1(SokobanEnv):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
+        self.render_mode = render_mode
         starting_observation = self.render()
 
         return np.expand_dims(self.room_state, 0)
@@ -348,6 +340,7 @@ class SokobanEnv_Source2(SokobanEnv):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
+        self.render_mode = render_mode
         starting_observation = self.render()
 
         return np.expand_dims(self.room_state, 0)
@@ -407,6 +400,7 @@ class SokobanEnv_Source3(SokobanEnv):
         self.num_env_steps = 0
         self.reward_last = 0
         self.boxes_on_target = 0
+        self.render_mode = render_mode
         starting_observation = self.render()
 
         return np.expand_dims(self.room_state, 0)
