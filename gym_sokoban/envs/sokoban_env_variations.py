@@ -1,7 +1,7 @@
 import numpy as np
 import random
 import copy
-from gym.spaces import Box
+from gymnasium.spaces import Box
 from typing import overload
 
 from . import render_utils as renu
@@ -95,6 +95,7 @@ class SokobanEnvColorBox(SokobanEnv):
         self.set_box_mapping(box_mapping)
         self.set_room_fixed(room_fixed)
         self.set_room_state(room_state)
+        # this indicates whether box color C is fixed: 0-no, 1-blue, 2-yellow 
         self.intervention = int(np.floor(self.context[2]))
 
         self.player_position = np.argwhere(self.room_state == 5)[0]
@@ -116,19 +117,17 @@ class SokobanEnvColorBox(SokobanEnv):
 
     def get_obs(self, observation_mode='state'):
         U = (random.random() <= self.color_threshold/100)
+        self.target_color = U
         # box and target color from s_{t+1}
         if self.intervention == 2:
             # fix box color to yellow
             self.box_color = False
-            self.target_color = U
         elif self.intervention == 1:
             # fix box color to blue
             self.box_color = True
-            self.target_color = U
         else:
             # w/ p = .3 set box color to blue
             # default threshold = 30, p = .3
-            self.target_color = U
             # this always aligns with box_color in this env
             self.box_color = self.target_color
 
@@ -183,12 +182,23 @@ class SokobanEnvColorBox(SokobanEnv):
         game_won = self._check_if_all_boxes_on_target()
         if game_won:
             # use box and target color from s_t!
-            if self.prev_box_color == self.prev_target_color and self.prev_target_color == 0:
+            # if self.prev_box_color == self.prev_target_color and self.prev_target_color == 0:
+            #     self.reward_last += self.reward_finished
+            # elif self.prev_box_color != self.prev_target_color and self.prev_target_color == 0:
+            #     self.reward_last += 2*self.reward_finished
+            # else:
+            #     self.reward_last += -self.reward_finished
+
+            # NEW REWARD function
+            if self.prev_target_color == 0: 
+                # yellow box +10
                 self.reward_last += self.reward_finished
-            elif self.prev_box_color != self.prev_target_color and self.prev_target_color == 0:
-                self.reward_last += 2*self.reward_finished
-            else:
+            elif self.prev_target_color == 1:
+                # blue box -10, next try with -1
                 self.reward_last += -self.reward_finished
+            else:
+                pass
+            #     self.reward_last += -self.reward_finished
 
         self.boxes_on_target = current_boxes_on_target
 
