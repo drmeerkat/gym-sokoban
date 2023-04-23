@@ -45,6 +45,7 @@ class SokobanEnv(gym.Env):
         self.action_space = Discrete(len(ACTION_LOOKUP))
         screen_height, screen_width = (dim_room[0] * 16, dim_room[1] * 16)
         self.observation_space = Box(low=0, high=255, shape=(screen_height, screen_width, 3), dtype=np.uint8)
+        self.render_mode = render_mode
         
         if reset:
             # Initialize Room
@@ -222,7 +223,7 @@ class SokobanEnv(gym.Env):
         except (RuntimeError, RuntimeWarning) as e:
             print("[SOKOBAN] Runtime Error/Warning: {}".format(e))
             print("[SOKOBAN] Retry . . .")
-            return self.reset(second_player=second_player, render_mode=render_mode)
+            return self.reset(second_player=second_player, render_mode=self.render_mode)
 
         self.player_position = np.argwhere(self.room_state == 5)[0]
         self.num_env_steps = 0

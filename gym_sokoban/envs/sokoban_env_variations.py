@@ -37,7 +37,7 @@ class SokobanEnvColorBox(SokobanEnv):
 
     def __init__(self, color_threshold = 30, render_mode='rgb_array', **kwargs):
         kwargs['num_boxes'] = 1
-        kwargs['max_steps'] = kwargs.get('max_steps', 30)
+        kwargs['max_steps'] = kwargs.get('max_steps', 20)
         kwargs['num_gen_steps'] = kwargs.get('num_gen_steps', 40)
         kwargs['dim_room'] = (5, 5)
         kwargs['reset'] = False # don't initialize the room
