@@ -70,6 +70,8 @@ class SokobanEnvColorBox(SokobanEnv):
         # 2 - do(box color = b, target color = random)
         self._context = [0, 0, 0]
         super(SokobanEnvColorBox, self).__init__(**kwargs)
+        # Originally, this is 1 -> reward every box on target
+        self.reward_box_on_target = 0
 
     def set_context(self, context):
         self._context = np.array(context)
