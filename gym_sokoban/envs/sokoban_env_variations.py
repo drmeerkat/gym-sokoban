@@ -16,6 +16,7 @@ class SokobanEnvColorBox(SokobanEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
         'render_modes': ['human', 'rgb_array', 'tiny_human', 'tiny_rgb_array'],
+        'render_fps': 20, # fake number...just to pass env checker
     }
 
     box_context_mapping = {
@@ -35,12 +36,13 @@ class SokobanEnvColorBox(SokobanEnv):
         # 7: (2, 3)
     }
 
-    def __init__(self, color_threshold = 30, render_mode='rgb_array', **kwargs):
+    def __init__(self, color_threshold = 30, render_mode='rgb_array', reward_box_on_target=1, reward_finished=10, **kwargs):
         kwargs['num_boxes'] = 1
         kwargs['max_steps'] = kwargs.get('max_steps', 20)
         kwargs['num_gen_steps'] = kwargs.get('num_gen_steps', 40)
         kwargs['dim_room'] = (5, 5)
         kwargs['reset'] = False # don't initialize the room
+        kwargs['render_mode'] = render_mode
 
         self.render_mode = render_mode
         self.color_threshold = color_threshold
@@ -71,7 +73,9 @@ class SokobanEnvColorBox(SokobanEnv):
         self._context = [0, 0, 0]
         super(SokobanEnvColorBox, self).__init__(**kwargs)
         # Originally, this is 1 -> reward every box on target
-        self.reward_box_on_target = 0
+        self.reward_box_on_target = reward_box_on_target
+        # Originally, this is 10 -> +- 10 on pushing boxes
+        self.reward_finished = reward_finished
 
     def set_context(self, context):
         self._context = np.array(context)
