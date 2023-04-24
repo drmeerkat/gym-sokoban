@@ -30,9 +30,9 @@ class SokobanEnvColorBox(SokobanEnv):
         2: (3, 1),
         3: (3, 2),
         4: (3, 3),
-        5: (1, 2),
-        6: (2, 2),
-        7: (2, 3)
+        # 5: (1, 2),
+        # 6: (2, 2),
+        # 7: (2, 3)
     }
 
     def __init__(self, color_threshold = 30, render_mode='rgb_array', **kwargs):
@@ -60,17 +60,16 @@ class SokobanEnvColorBox(SokobanEnv):
         #  [w, w, w, w, w]]
         # And the agent to be in these 5 locations
         # [[w, w, w, w, w],
-        #  [w, 0, 5, t, w],
-        #  [w, 1, 6, 7, w],
+        #  [w, 0, e, t, w],
+        #  [w, 1, e, e, w],
         #  [w, 2, 3, 4, w],
         #  [w, w, w, w, w]]
         # There are 3 types of interventions
         # 0 - no intervention (box color = y/b, target color = box color)
         # 1 - do(box color = y, target color = random)
         # 2 - do(box color = b, target color = random)
-        self._context = [0, 6, 0]
+        self._context = [0, 0, 0]
         super(SokobanEnvColorBox, self).__init__(**kwargs)
-        self.observation_space = Box(low=0, high=6, shape=(1, kwargs['dim_room'][0], kwargs['dim_room'][1]), dtype=np.int64)
 
     def set_context(self, context):
         self._context = np.array(context)
